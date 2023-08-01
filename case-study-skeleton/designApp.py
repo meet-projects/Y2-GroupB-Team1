@@ -1,4 +1,24 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import session as login_session
+import pyrebase
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyD7KwDBguJLTFBjh8ysizEGtou-4bv7-V0",
+  authDomain: "travlerpack-c53e3.firebaseapp.com",
+  projectId: "travlerpack-c53e3",
+  storageBucket: "travlerpack-c53e3.appspot.com",
+  messagingSenderId: "167060716254",
+  appId: "1:167060716254:web:f135ccf81d19241c60604f",
+  measurementId: "G-E942LTDK00"
+};
+
+
+
+
+firebase = pyrebase.initialize_app(config)
+auth = firebase.auth()
+db = firebase.database()
 
 app = Flask(__name__, template_folder='templates',static_folder='static')
 
@@ -17,6 +37,11 @@ slides = [
 def index():
     num_slides = len(slides)  # Calculate the number of slides
     return render_template('design.html', slides=slides, num_slides=num_slides)
+
+@app.route('/slideshow')
+def timeline():
+    return render_template('aboutpage_gabby.html')
+
 
 
 if __name__ == '__main__':
