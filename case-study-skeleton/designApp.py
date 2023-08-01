@@ -3,14 +3,14 @@ from flask import session as login_session
 import pyrebase
 
 
-const firebaseConfig = {
-  apiKey: "AIzaSyD7KwDBguJLTFBjh8ysizEGtou-4bv7-V0",
-  authDomain: "travlerpack-c53e3.firebaseapp.com",
-  projectId: "travlerpack-c53e3",
-  storageBucket: "travlerpack-c53e3.appspot.com",
-  messagingSenderId: "167060716254",
-  appId: "1:167060716254:web:f135ccf81d19241c60604f",
-  measurementId: "G-E942LTDK00"
+config = {
+  "apiKey": "AIzaSyD7KwDBguJLTFBjh8ysizEGtou-4bv7-V0",
+  "authDomain": "travlerpack-c53e3.firebaseapp.com",
+  "projectId": "travlerpack-c53e3",
+  "storageBucket": "travlerpack-c53e3.appspot.com",
+  "messagingSenderId": "167060716254",
+  "appId": "1:167060716254:web:f135ccf81d19241c60604f",
+  "databaseURL": "https://travlerpack-c53e3-default-rtdb.firebaseio.com/"
 };
 
 
@@ -42,6 +42,25 @@ def index():
 def timeline():
     return render_template('aboutpage_gabby.html')
 
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html') 
+
+@app.route('/submit_feedback', methods=['POST'])
+def submit_feedback():
+    name = request.form['name']
+    email = request.form['email']
+    message = request.form['message']
+
+    # Save the feedback to Firebase
+    feedback_data = {
+        'name': name,
+        'email': email,
+        'message': message
+    }
+    db.child('feedback').push(feedback_data)
+    return redirect('contact.html')
 
 
 if __name__ == '__main__':
