@@ -22,9 +22,11 @@
   <div class="container">
     <div class="card">
       <span class="title">Get In Touch</span>
+
+
       <form action="/donate" method="POST" class="form">
         <div class="group">
-          <input placeholder="‎" type="text" required="">
+          <input placeholder="‎" type="text" name="name" id="name" required="">
           <label for="name">Name</label>
         </div>
         <div class="group">
@@ -35,8 +37,9 @@
           <textarea placeholder="‎" id="comment" name="comment" rows="5" required=""></textarea>
           <label for="comment">Comment</label>
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit" value="submit_feedback">Submit</button>
       </form>
+
 
     </div>
   </div>

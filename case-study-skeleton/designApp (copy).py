@@ -1,24 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
-from flask import session as login_session
-import pyrebase
-
-
-config = {
-  "apiKey": "AIzaSyD7KwDBguJLTFBjh8ysizEGtou-4bv7-V0",
-  "authDomain": "travlerpack-c53e3.firebaseapp.com",
-  "projectId": "travlerpack-c53e3",
-  "storageBucket": "travlerpack-c53e3.appspot.com",
-  "messagingSenderId": "167060716254",
-  "appId": "1:167060716254:web:f135ccf81d19241c60604f",
-  "databaseURL": "https://travlerpack-c53e3-default-rtdb.firebaseio.com/"
-};
-
-
-
-
-firebase = pyrebase.initialize_app(config)
-auth = firebase.auth()
-db = firebase.database()
+from flask import Flask, render_template
 
 app = Flask(__name__, template_folder='templates',static_folder='static')
 
@@ -38,15 +18,6 @@ def deign():
     num_slides = len(slides)  # Calculate the number of slides
     return render_template('design.html', slides=slides, num_slides=num_slides)
 
-<<<<<<< Updated upstream
-@app.route('/slideshow')
-def timeline():
-    return render_template('aboutpage_gabby.html')
-
-
-=======
->>>>>>> Stashed changes
-@app.route('/contact')
 def contact():
     return render_template('contact.html') 
 
@@ -64,10 +35,6 @@ def submit_feedback():
     }
     db.child('feedback').push(feedback_data)
     return redirect('contact.html')
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 
 if __name__ == '__main__':
     app.run(debug=True)

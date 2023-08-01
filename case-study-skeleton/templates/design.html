@@ -1,39 +1,150 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/styles.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <title>TravlerPack</title>
 </head>
 
 <body>
-    <div class="carousel">
-        <div class="slides">
-            {% for slide in slides %}
-            <div class="slide">
-                <a href= "{{ slide['url'] }}"><img src="{{ slide['image'] }}" alt="Slide {{ loop.index0 }}"></a>
-                <div class="slide-text-container">
-                    <div class="slide-text">
-                        {% set text_length = slide['text']|length %}
-                        {% set chunk_size = 122 %}
-                        {% for i in range(0, text_length, chunk_size) %}
-                        <div class="slide-text-line">{{ slide['text'][i:i+chunk_size] }}</div>
-                        {% endfor %}
-                    </div>
+    <header class="header">
+        <a href="/" class="logo">TravlerPack</a>
+        <nav class="navbar">
+            <a href="/">Home</a>
+            <a href="#mission">About Us</a>
+            <a href="#">Product Design</a>
+            <a href="/donate">Donate</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="intro">
+            <h1>TravlerPack</h1>
+            <p>"Warming Peoples Hearts With Every TravlerPack."</p>
+            <button onclick="scrollToMission()">More About Us</button>
+        </div>
+
+        <section id="mission">
+            <div class="mission-content">
+                <div class="mission-text">
+                    <center>
+                        <h2>Our Mission</h2>
+                    </center>
+                    <p class="description">TravlerPack aims to keep refugees and displaced persons warm during
+                        the winter. We designed our sleeping bag to serve as a long-term, cost-effective alternative
+                        to traditional methods of staying warm such as burning wood and fuel.</p>
+                    <button onclick="scrollToYt()">Watch Video</button>
+                </div>
+                <div class="mission-image">
+                    <img src="https://www.aljazeera.com/wp-content/uploads/2022/01/5O0B2586.jpg?resize=1800%2C1800"
+                        alt="Round Picture Frame">
                 </div>
             </div>
-            {% endfor %}
+        </section>
+
+        <section id="yt">
+            <div class="youtube-video">
+                <!-- Replace the following URL with your YouTube video embed code -->
+                <iframe width="560" height="315" src="https://youtu.be/1IjiHYXi1zE" frameborder="0"
+                    allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <!-- Insert the content of the second HTML file (carousel.html) here -->
+        <!-- Start of carousel.html content -->
+        <div class="carousel">
+            <div class="slides">
+                {% for slide in slides %}
+                <div class="slide">
+                    <a href= "{{ slide['url'] }}"><img src="{{ slide['image'] }}" alt="Slide {{ loop.index0 }}"></a>
+                    <div class="slide-text-container">
+                        <div class="slide-text">
+                            {% set text_length = slide['text']|length %}
+                            {% set chunk_size = 122 %}
+                            {% for i in range(0, text_length, chunk_size) %}
+                            <div class="slide-text-line">{{ slide['text'][i:i+chunk_size] }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="controls">
+                <div class="arrow prev" onclick="prevSlide()">&#10094;</div>
+                <div class="arrow next" onclick="nextSlide()">&#10095;</div>
+            </div>
+            <div class="pagination">
+                {% for i in range(slides|length) %}
+                <span class="dot" onclick="gotoSlide({{ i }})"></span>
+                {% endfor %}
+            </div>
         </div>
-        <div class="controls">
-            <div class="arrow prev" onclick="prevSlide()">&#10094;</div>
-            <div class="arrow next" onclick="nextSlide()">&#10095;</div>
-        </div>
-        <div class="pagination">
-            {% for i in range(slides|length) %}
-            <span class="dot" onclick="gotoSlide({{ i }})"></span>
-            {% endfor %}
-        </div>
-    </div>
+        <!-- End of carousel.html content -->
+    </main>
+
+    <script>
+                
+        function scrollToMission() {
+            document.getElementById('mission').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToYt() {
+            document.getElementById('yt').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        window.addEventListener('scroll', function() {
+            var header = document.querySelector('.header');
+            if (window.scrollY > 0) {
+                header.classList.add('nav-scroll');
+            } else {
+                header.classList.remove('nav-scroll');
+            }
+        });
+        var slideIndex = 0;
+        showSlide(slideIndex);
+
+        function showSlide(n) {
+            var slides = document.getElementsByClassName("slide");
+            if (n >= slides.length) {
+                slideIndex = 0;
+            }
+            if (n < 0) {
+                slideIndex = slides.length - 1;
+            }
+            for (var i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slides[slideIndex].style.display = "block";
+        }
+
+        function prevSlide() {
+            slideIndex -= 1;
+            showSlide(slideIndex);
+        }
+
+        function nextSlide() {
+            slideIndex += 1;
+            showSlide(slideIndex);
+        }
+
+        function gotoSlide(n) {
+            slideIndex = n;
+            showSlide(slideIndex);
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.keyCode === 37) { // Left arrow key
+                prevSlide();
+            } else if (event.keyCode === 39) { // Right arrow key
+                nextSlide();
+            }
+        });
+    </script>
 </body>
 
 </html>
