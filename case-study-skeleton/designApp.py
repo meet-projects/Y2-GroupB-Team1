@@ -18,6 +18,11 @@ def index():
     num_slides = len(slides)  # Calculate the number of slides
     return render_template('design.html', slides=slides, num_slides=num_slides)
 
+@app.route('/slideshow')
+def timeline():
+    return render_template('aboutpage_gabby.html')
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
