@@ -50,8 +50,7 @@ body {
 
 .slide:hover .slide-text {
     transform: translateY(0);
-}
-
+    }
 .controls {
     position: absolute;
     top: 50%;
