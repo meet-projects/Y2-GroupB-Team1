@@ -18,6 +18,7 @@ def deign():
     num_slides = len(slides)  # Calculate the number of slides
     return render_template('design.html', slides=slides, num_slides=num_slides)
 
+@app.route('/contact')
 def contact():
     return render_template('contact.html') 
 
