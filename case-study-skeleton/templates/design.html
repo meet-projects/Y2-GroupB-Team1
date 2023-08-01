@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</head>
+
+<body>
+    <div class="carousel">
+        <div class="slides">
+            {% for slide in slides %}
+            <div class="slide">
+                <a href= "{{ slide['url'] }}"><img src="{{ slide['image'] }}" alt="Slide {{ loop.index0 }}"></a>
+                <div class="slide-text-container">
+                    <div class="slide-text">
+                        {% set text_length = slide['text']|length %}
+                        {% set chunk_size = 122 %}
+                        {% for i in range(0, text_length, chunk_size) %}
+                        <div class="slide-text-line">{{ slide['text'][i:i+chunk_size] }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="controls">
+            <div class="arrow prev" onclick="prevSlide()">&#10094;</div>
+            <div class="arrow next" onclick="nextSlide()">&#10095;</div>
+        </div>
+        <div class="pagination">
+            {% for i in range(slides|length) %}
+            <span class="dot" onclick="gotoSlide({{ i }})"></span>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+
+</html>
