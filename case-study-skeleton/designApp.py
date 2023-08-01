@@ -38,14 +38,10 @@ def deign():
     num_slides = len(slides)  # Calculate the number of slides
     return render_template('design.html', slides=slides, num_slides=num_slides)
 
-<<<<<<< Updated upstream
-@app.route('/slideshow')
+@app.route('/about')
 def timeline():
     return render_template('aboutpage_gabby.html')
 
-
-=======
->>>>>>> Stashed changes
 @app.route('/contact')
 def contact():
     return render_template('contact.html') 
@@ -63,11 +59,8 @@ def submit_feedback():
         'message': message
     }
     db.child('feedback').push(feedback_data)
-    return redirect('contact.html')
-<<<<<<< Updated upstream
+    return redirect('design.html')
 
-=======
->>>>>>> Stashed changes
 
 if __name__ == '__main__':
     app.run(debug=True)
