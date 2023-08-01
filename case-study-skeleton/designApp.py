@@ -33,33 +33,42 @@ slides = [
     {'image':"https://images.squarespace-cdn.com/content/v1/596d5a0b6b8f5b88b9eb4437/1681619042246-36GMZYYS49G3WEM96RX8/image-asset.jpeg?format=500w",'text':'image8','url':'https://www.instagram.com/p/Cq5qz3ovYNn/'}
 ]
 
-@app.route('/')
+@app.route('/', methods = ["POST", "GET"])
 def deign():
     num_slides = len(slides)  # Calculate the number of slides
     return render_template('design.html', slides=slides, num_slides=num_slides)
 
-@app.route('/about')
+@app.route('/about', methods = ["POST", "GET"])
 def timeline():
     return render_template('aboutpage_gabby.html')
 
-@app.route('/contact')
+@app.route('/contact', methods = ["POST", "GET"])
 def contact():
-    return render_template('contact.html') 
+    if request.method == 'POST':
+        name = request.form['name']
+        email = request.form['email']
+        message = request.form['comment']
+        username = request.form['username']
 
-@app.route('/submit_feedback', methods=['POST'])
-def submit_feedback():
-    name = request.form['name']
-    email = request.form['email']
-    message = request.form['message']
+        # Save the feedback to Firebase
+        feedback_data = {
+            'name': name,
+            'email': email,
+            'message': message,
+            'username' : username,
+        }
+        # db.child('feedback').push(feedback_data)
 
-    # Save the feedback to Firebase
-    feedback_data = {
-        'name': name,
-        'email': email,
-        'message': message
-    }
-    db.child('feedback').push(feedback_data)
-    return redirect('design.html')
+        db.child("Users").child(username).set(feedback_data)
+        info = db.child("Users").child(username).get().val()
+        n = info['name']
+        return render_template('contact.html', b = True, name = n) 
+    return render_template('contact.html', b = False) 
+
+# @app.route('/submit_feedback', methods=['GET','POST'])
+# def submit_feedback():
+    
+#         return redirect(url_for('contact'))
 
 
 if __name__ == '__main__':

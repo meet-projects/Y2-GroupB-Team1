@@ -24,10 +24,14 @@
       <span class="title">Get In Touch</span>
 
 
-      <form action="/donate" method="POST" class="form">
+      <form action="/contact" method="POST" class="form">
         <div class="group">
           <input placeholder="‎" type="text" name="name" id="name" required="">
           <label for="name">Name</label>
+        </div>
+        <div class="group">
+          <input placeholder="‎" type="text" name="username" id="username" required="">
+          <label for="name">Username</label>
         </div>
         <div class="group">
           <input placeholder="‎" type="email" id="email" name="email" required="">
@@ -42,6 +46,13 @@
 
 
     </div>
+  </div>
+  <br>
+  <div>
+    {% if b %}
+      <p>thank you {{name}}!</p>
+    {% endif %}
+    
   </div>
 </body>
 </html>
