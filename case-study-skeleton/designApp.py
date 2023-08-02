@@ -59,8 +59,8 @@ def contact():
         }
         # db.child('feedback').push(feedback_data)
 
-        db.child("Users").child(username).set(feedback_data)
-        info = db.child("Users").child(username).get().val()
+        db.child("users").child(username).set(feedback_data)
+        info = db.child("users").child(username).get().val()
         n = info['name']
         return render_template('contact.html', b = True, name = n) 
     return render_template('contact.html', b = False) 

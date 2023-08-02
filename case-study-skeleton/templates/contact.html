@@ -38,7 +38,7 @@
           <label for="email">Email</label>
         </div>
         <div class="group">
-          <textarea placeholder="‎" id="comment" name="comment" rows="5" required=""></textarea>
+          <input placeholder="‎" id="comment" name="comment" rows="5" required=""></textarea>
           <label for="comment">Comment</label>
         </div>
         <button type="submit" value="submit_feedback">Submit</button>
@@ -48,11 +48,18 @@
     </div>
   </div>
   <br>
-  <div>
+  <div class="thankyou">
     {% if b %}
       <p>thank you {{name}}!</p>
     {% endif %}
     
   </div>
+  <style type="text/css">
+    .thankyou{
+      position: =absolute;
+      top:10%;
+      left: 50%;
+    }
+  </style>
 </body>
 </html>
