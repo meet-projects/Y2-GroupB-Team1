@@ -8,13 +8,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
+    {% if b %}
+      <div class="thankyou">
+      <p>thank you {{name}}!</p>
+    {% endif %}  
+  </div>
   <div class="background-image"></div>
   <header class="header">
     <a href="#" class="logo">TravlerPack</a>
     <nav class="navbar">
       <a href="/">Home</a>
-      <a href="#mission">About Us</a>
-      <a href="#">Product Design</a>
+      <a href="/mission">About Us</a>
+      <a href="/design">Product Design</a>
       <a href="https://www.launchgood.com/campaign/warm_blankets_for_refugee_children#!/">Donate</a>
       <a href="#">Contact</a>
     </nav>
@@ -48,17 +53,22 @@
     </div>
   </div>
   <br>
-  <div class="thankyou">
-    {% if b %}
-      <p>thank you {{name}}!</p>
-    {% endif %}
-    
-  </div>
+ 
   <style type="text/css">
-    .thankyou{
-      position: =absolute;
-      top:10%;
-      left: 50%;
+    /* styles.css */
+
+    .thankyou {
+      position: absolute;
+      background-color: #f1c40f; /* Replace this with the desired background color */
+      border-radius: 5px; /* Optional: Add rounded corners to the message box */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional: Add a box shadow for a subtle effect */
+      max-width: 200px;
+      border: 5px solid;
+      margin: auto;
+      width: 50%;
+      padding: 10px;
+      margin-top: 100px;
+      margin-left: 43%;
     }
   </style>
 </body>
